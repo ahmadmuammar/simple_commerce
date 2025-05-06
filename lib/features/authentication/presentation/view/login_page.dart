@@ -80,7 +80,8 @@ class _LoginPageState extends State<LoginPage> {
                           (route) => false);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text(state.loginResponse.token ?? ''),
+                          backgroundColor: Colors.green,
+                          content: Text('Success Login'),
                         ),
                       );
                     } else if (state is AuthLoadFailure) {
