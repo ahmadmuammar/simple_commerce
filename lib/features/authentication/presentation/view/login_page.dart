@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_commerce/core/core.dart';
 import 'package:simple_commerce/features/authentication/domain/domain.dart';
 import 'package:simple_commerce/features/authentication/presentation/presentation.dart';
+import 'package:simple_commerce/features/cart/presentation/presentation.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -62,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Field can not be empty';
-                  } else if (value.length < 2) {
+                  } else if (value.length < 8) {
                     return 'Password must be at least 8 characters';
                   }
                   return null;
@@ -73,6 +73,11 @@ class _LoginPageState extends State<LoginPage> {
                 child: BlocConsumer<AuthBloc, AuthState>(
                   listener: (context, state) {
                     if (state is AuthLoginSuccess) {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const CartPage()),
+                          (route) => false);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(state.loginResponse.token ?? ''),
@@ -81,6 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                     } else if (state is AuthLoadFailure) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
+                          backgroundColor: Colors.red,
                           content: Text(state.errorMessage),
                         ),
                       );

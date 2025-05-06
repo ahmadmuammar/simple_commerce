@@ -3,6 +3,9 @@ import 'package:get_it/get_it.dart';
 import 'package:simple_commerce/features/authentication/data/data.dart';
 import 'package:simple_commerce/features/authentication/domain/domain.dart';
 import 'package:simple_commerce/features/authentication/presentation/presentation.dart';
+import 'package:simple_commerce/features/cart/data/data.dart';
+import 'package:simple_commerce/features/cart/domain/domain.dart';
+import 'package:simple_commerce/features/cart/presentation/presentation.dart';
 
 import '../core.dart';
 
@@ -17,17 +20,32 @@ void init() {
         dio: di(),
       ),
     )
+    ..registerLazySingleton<CartRemoteDatasource>(
+      () => CartRemoteDatasourceImpl(
+        dio: di(),
+      ),
+    )
     // Usecases
     ..registerFactory(
       () => Login(
         datasource: di(),
       ),
     )
+    ..registerFactory(
+      () => GetAllCarts(
+        datasource: di(),
+      ),
+    )
 
     // Blocs
-    ..registerLazySingleton(
+    ..registerFactory(
       () => AuthBloc(
         login: di(),
+      ),
+    )
+    ..registerFactory(
+      () => CartBloc(
+        getAllCarts: di(),
       ),
     )
 
