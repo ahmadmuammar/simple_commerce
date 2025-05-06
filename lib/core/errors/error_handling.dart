@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:klontonk/core/core.dart';
+import 'package:simple_commerce/core/core.dart';
 
 mixin ErrorHandling {
   Result<T, Exception> handleException<T>(Exception error) {

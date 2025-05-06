@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:klontonk/core/core.dart';
-import 'package:klontonk/features/features.dart';
-
-import 'package:klontonk/l10n/l10n.dart';
+import 'package:simple_commerce/core/core.dart';
+import 'package:simple_commerce/features/authentication/presentation/presentation.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -11,9 +9,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: CustomTheme.lightTheme,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      home: const ProductsPage(),
+      home: const LoginPage(),
     );
   }
 }

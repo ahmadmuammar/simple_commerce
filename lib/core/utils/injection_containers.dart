@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:simple_commerce/features/authentication/data/data.dart';
+import 'package:simple_commerce/features/authentication/domain/domain.dart';
+import 'package:simple_commerce/features/authentication/presentation/presentation.dart';
 
 import '../core.dart';
 
@@ -9,10 +12,24 @@ void init() {
   di
 
     // Remote Datasources
-
+    ..registerLazySingleton<AuthRemoteDatasource>(
+      () => AuthRemoteDatasourceImpl(
+        dio: di(),
+      ),
+    )
     // Usecases
+    ..registerFactory(
+      () => Login(
+        datasource: di(),
+      ),
+    )
 
     // Blocs
+    ..registerLazySingleton(
+      () => AuthBloc(
+        login: di(),
+      ),
+    )
 
     // Others
     ..registerLazySingleton(() {

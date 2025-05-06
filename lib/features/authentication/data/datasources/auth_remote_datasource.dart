@@ -25,7 +25,13 @@ class AuthRemoteDatasourceImpl
       final response = await dio.post(
         'https://fakestoreapi.com/auth/login',
         data: params.toMap(),
+        options: Options(validateStatus: (status) => true),
       );
+      if (response.statusCode != 200) {
+        return Failure<LoginResponse, Exception>(
+          Exception(response.data),
+        );
+      }
       return Success<LoginResponse, Exception>(
         LoginResponse.fromJson(response.data as Map<String, dynamic>),
       );
