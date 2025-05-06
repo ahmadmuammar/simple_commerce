@@ -5,6 +5,7 @@ import 'package:simple_commerce/features/cart/data/data.dart';
 
 abstract class CartRemoteDatasource {
   Future<Result<List<AllCartResponse>, Exception>> getAllCarts();
+  Future<Result<ProductResponse, Exception>> getProductDetails(int id);
 }
 
 class CartRemoteDatasourceImpl
@@ -36,6 +37,27 @@ class CartRemoteDatasourceImpl
       );
     } on Exception catch (e) {
       return handleException<List<AllCartResponse>>(e);
+    }
+  }
+
+  @override
+  Future<Result<ProductResponse, Exception>> getProductDetails(int id) async {
+    try {
+      final response = await dio.get(
+        'https://fakestoreapi.com/products/$id',
+        data: {},
+        options: Options(validateStatus: (status) => true),
+      );
+      if (response.statusCode != 200) {
+        return Failure<ProductResponse, Exception>(
+          Exception(response.data),
+        );
+      }
+      return Success<ProductResponse, Exception>(
+        ProductResponse.fromJson(response.data as Map<String, dynamic>),
+      );
+    } on Exception catch (e) {
+      return handleException<ProductResponse>(e);
     }
   }
 }

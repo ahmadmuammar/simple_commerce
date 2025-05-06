@@ -36,6 +36,11 @@ void init() {
         datasource: di(),
       ),
     )
+    ..registerFactory(
+      () => GetProductDetails(
+        datasource: di(),
+      ),
+    )
 
     // Blocs
     ..registerFactory(
@@ -46,6 +51,7 @@ void init() {
     ..registerFactory(
       () => CartBloc(
         getAllCarts: di(),
+        getProductDetails: di(),
       ),
     )
 

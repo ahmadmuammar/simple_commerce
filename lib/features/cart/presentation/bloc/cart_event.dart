@@ -8,3 +8,11 @@ sealed class CartEvent extends Equatable {
 }
 
 class GetAllCartTriggered extends CartEvent {}
+
+class GetProductDetailsPressed extends CartEvent {
+  const GetProductDetailsPressed({required this.id});
+  final int id;
+
+  @override
+  List<Object> get props => [id];
+}

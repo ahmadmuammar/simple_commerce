@@ -19,6 +19,14 @@ class GetAllCartSuccess extends CartState {
   List<Object> get props => [allCartResponse];
 }
 
+class GetProductDetailsSuccess extends CartState {
+  const GetProductDetailsSuccess({required this.productDetailsResponse});
+  final ProductResponse productDetailsResponse;
+
+  @override
+  List<Object> get props => [productDetailsResponse];
+}
+
 class CartLoadFailure extends CartState {
   const CartLoadFailure({required this.errorMessage});
   final String errorMessage;
